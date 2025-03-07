@@ -38,7 +38,7 @@ yarn
 3. Create a .env file in the project root:
 
 ```ts
-TOKEN=your_peka_api_token
+TOKEN=your_peka_api_bearer_token(without "Bearer " part, just token)
 ```
 
 ## Usage
