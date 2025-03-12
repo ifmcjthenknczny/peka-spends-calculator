@@ -1,14 +1,18 @@
 # PEKA Transit Expense Tracker
 
-A Node.js script that retrieves and calculates the total amount spent on public transit from PEKA (Poznań's public transport system) over a specified time range.
+> Do you want to know how much did you spend on transit in Poznań in given period of time?
+
+This is a Node.js script that retrieves and calculates the total amount spent on public transit from PEKA (Poznań's public transport system) over a specified time range.
 
 ## Features
 
 * Fetches transaction data from PEKA API.
 
-* Computes total transit expenses within the last two months.
+* Automatically gets bearer token for session from provided username and password.
 
-* Logs the last computed transaction date and total expenses.
+* Computes total transit expenses within the selected dates (if possible).
+
+* Logs the earliest computed transaction date and total expenses.
 
 ## Prerequisites
 
@@ -16,7 +20,7 @@ A Node.js script that retrieves and calculates the total amount spent on public 
 
 * TypeScript (if running from source)
 
-* A PEKA account with API access
+* A PEKA account
 
 * Yarn installed globally
 
@@ -29,17 +33,16 @@ git clone https://github.com/yourusername/peka-transit-tracker.git
 cd peka-transit-tracker
 ```
 
-2. Install dependencies:
-
-```bash
-yarn
-```
-
-3. Create a .env file in the project root:
+2. Rename `.env_example` to `.env` and fill it according to the schema below:
 
 ```ts
-TOKEN=your_peka_api_bearer_token(without "Bearer " part, just token)
+EMAIL=your_email_in_peka_system
+PASSWORD=your_password_to_account
+START_DAY=start_date (in YYYY-MM-DD schema, eg. 2005-04-02)
+END_DAY=end_date (default is today)
 ```
+
+Both `START_DAY` and `END_DAY` must be provided in YYYY-MM-DD format, eg. 2005-04-02. They are not required through - if they are not provided, then `START_DAY` defaults to month ago and `END_DAY` defaults to today's date.
 
 ## Usage
 
@@ -51,22 +54,16 @@ yarn start
 
 ### Expected Output
 ```bash
-Last computed date: YYYY-MM-DD
+Earliest computed date: YYYY-MM-DD
 Day range (both sides included): YYYY-MM-DD to YYYY-MM-DD
-During this time you spent XX.XX zł
+During this time you have spent XX.XX zł
 ```
 
-## Configuration
+Day range may be different that you provided, because of data availability limitations. If the requested date range includes days with no available data, the system will adjust the range to the closest available dates.
 
-- The script by default fetches transactions for the past month.
+## Roadmap
 
-- Adjust the date range by modifying in `index.ts`:
-```ts
-const START_DAY = toDay(dayjs().subtract(1, 'month'));
-const LAST_DAY = toDay(dayjs());
-```
-
-- Modify the request headers in REQUEST_HEADERS if needed.
+- Add captcha solver
 
 ## License
 
