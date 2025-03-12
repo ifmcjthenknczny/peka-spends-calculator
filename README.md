@@ -38,11 +38,11 @@ cd peka-transit-tracker
 ```ts
 EMAIL=your_email_in_peka_system
 PASSWORD=your_password_to_account
-START_DAY=start_date (in YYYY-MM-DD schema, eg. 2005-04-02)
-END_DAY=end_date (default is today)
+START_DAY=start_date
+END_DAY=end_date
 ```
 
-Both `START_DAY` and `END_DAY` must be provided in YYYY-MM-DD format, eg. 2005-04-02. They are not required through - if they are not provided, then `START_DAY` defaults to month ago and `END_DAY` defaults to today's date.
+Both `START_DAY` and `END_DAY` must be provided in YYYY-MM-DD format, eg. 2137-04-02. They are not required through - if they are not provided, then `START_DAY` defaults to month ago and `END_DAY` defaults to today's date.
 
 ## Usage
 
