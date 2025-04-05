@@ -121,7 +121,7 @@ const requestTransits = async () => {
     }
   }
 
-  console.log(`Earliest computed date: ${earliestDate}`);
+  console.log(`Earliest date: ${earliestDate}`);
   console.log(
     `Day range (both sides included): ${
       hasFinishedEarly ? earliestDate : toDay(START_DAY)
