@@ -114,14 +114,19 @@ const requestTransits = async () => {
     // total pages is eg. 5, but pageNumber starts from 0
     if (
       pageNumber === totalPages - 1 &&
-      dayjs(toDay(content.at(-1)?.transactionDate)).isBefore(dayjs(START_DAY))
+      dayjs(START_DAY).isBefore(dayjs(toDay(content.at(-1)?.transactionDate)))
     ) {
       earliestDate = toDay(content.at(-1)?.transactionDate);
-      console.warn("PREMATURELY REACHED END OF AVAILABLE DATA");
+      hasFinishedEarly = true;
     }
   }
 
-  console.log(`Earliest date: ${earliestDate}`);
+  if (earliestDate) {
+    console.warn(
+      "PREMATURELY REACHED END OF AVAILABLE DATA. NOT ALL DATA MAY BE AVAILABLE FOR GIVEN RANGE"
+    );
+    console.log(`Earliest ride date: ${earliestDate}`);
+  }
   console.log(
     `Day range (both sides included): ${
       hasFinishedEarly ? earliestDate : toDay(START_DAY)
